@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,25 +11,28 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  password  String
-  name      String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  projects  Project[]
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  password String
+  name     String?
+  projects Project[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
 }
 
 model Project {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String?
-  color       String   @default("#3B82F6")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  userId      Int
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tasks       Task[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  color     String   @default("#3B82F6")
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tasks     Task[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("projects")
 }
 
 model Task {
@@ -34,10 +40,19 @@ model Task {
   title       String
   description String?
   completed   Boolean  @default(false)
-  priority    String   @default("medium")
+  priority    Priority @default(MEDIUM)
   dueDate     DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
   projectId   Int
   project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("tasks")
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
 }
