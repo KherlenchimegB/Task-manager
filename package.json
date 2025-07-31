@@ -1,12 +1,22 @@
 {
   "name": "task-manager",
   "version": "1.0.0",
+  "description": "A full-stack task management application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "db:setup": "cd backend && npx prisma generate && npx prisma db push",
+    "db:reset": "cd backend && npx prisma db push --force-reset"
   },
-  "keywords": [],
+  "keywords": ["task-manager", "fullstack", "nextjs", "express", "prisma"],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

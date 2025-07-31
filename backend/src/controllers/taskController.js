@@ -317,3 +317,21 @@ export const getDashboardStats = async (req, res) => {
     });
   }
 };
+export const getTaskStats = async (req, res) => {
+  const userId = req.user.id;
+  const days = 7; // Last 7 days
+  
+  const stats = await prisma.$queryRaw`
+    SELECT 
+      DATE(created_at) as date,
+      COUNT(*) as count
+    FROM tasks 
+    WHERE user_id = ${userId} 
+      AND completed = true 
+      AND created_at >= NOW() - INTERVAL '${days} days'
+    GROUP BY DATE(created_at)
+    ORDER BY date
+  `;
+  
+  res.json({ stats });
+};

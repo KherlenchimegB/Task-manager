@@ -1,62 +1,43 @@
-// Database configuration
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-// User model - stores user information
 model User {
   id        Int       @id @default(autoincrement())
-  email     String    @unique // Email must be unique
-  password  String    // Hashed password
-  name      String?   // Optional name field
+  email     String    @unique
+  password  String
+  name      String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  
-  // Relationship: One user can have many projects
   projects  Project[]
-  
-  @@map("users") // Maps to 'users' table in database
 }
 
-// Project model - organizes tasks into groups
 model Project {
   id          Int      @id @default(autoincrement())
-  name        String   // Project name (e.g., "Work", "Personal")
-  description String?  // Optional project description
-  color       String   @default("#3B82F6") // Project color for UI
+  name        String
+  description String?
+  color       String   @default("#3B82F6")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
-  // Foreign key to User
   userId      Int
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  // Relationship: One project can have many tasks
   tasks       Task[]
-  
-  @@map("projects")
 }
 
-// Task model - individual tasks within projects
 model Task {
   id          Int      @id @default(autoincrement())
-  title       String   // Task title
-  description String?  // Optional task description
-  completed   Boolean  @default(false) // Task completion status
-  priority    String   @default("medium") // low, medium, high
-  dueDate     DateTime? // Optional due date
+  title       String
+  description String?
+  completed   Boolean  @default(false)
+  priority    String   @default("medium")
+  dueDate     DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
-  // Foreign key to Project
   projectId   Int
   project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  
-  @@map("tasks")
 }
