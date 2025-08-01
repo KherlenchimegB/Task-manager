@@ -1,50 +1,184 @@
-# Welcome to your Expo app 👋
+# Task Manager Mobile App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native mobile application for the Task Manager project, built with Expo and TypeScript.
 
-## Get started
+## 🚀 Features
 
-1. Install dependencies
+- **User Authentication**: Login with email and password
+- **Project Management**: View and select projects
+- **Task Management**: View tasks with priorities and due dates
+- **Real-time Updates**: Pull-to-refresh functionality
+- **Beautiful UI**: Modern design with smooth animations
+- **Cross-platform**: Works on iOS and Android
 
-   ```bash
-   npm install
-   ```
+## 📱 Screenshots
 
-2. Start the app
+- **Login Screen**: Clean authentication interface
+- **Dashboard**: Project selector and task overview
+- **Task List**: View tasks with priority badges
+- **Statistics**: Quick stats overview
 
-   ```bash
-   npx expo start
-   ```
+## 🛠 Tech Stack
 
-In the output, you'll find options to open the app in a
+- **React Native**: Cross-platform mobile development
+- **Expo**: Development platform and tools
+- **TypeScript**: Type-safe development
+- **React Navigation**: Navigation between screens
+- **Axios**: HTTP client for API calls
+- **Expo Router**: File-based routing
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 📋 Prerequisites
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- Node.js 18+
+- Expo CLI (`npm install -g @expo/cli`)
+- iOS Simulator (for iOS development)
+- Android Studio (for Android development)
 
-## Get a fresh project
+## 🚀 Quick Start
 
-When you're ready, run:
+### 1. Install Dependencies
 
 ```bash
-npm run reset-project
+cd task-manager-mobile
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Start the Backend
 
-## Learn more
+Make sure the backend server is running:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+cd ../backend
+npm run dev
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 3. Start the Mobile App
 
-## Join the community
+```bash
+cd task-manager-mobile
+npm start
+```
 
-Join our community of developers creating universal apps.
+### 4. Run on Device/Simulator
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- **iOS**: Press `i` in the terminal or scan QR code with Expo Go app
+- **Android**: Press `a` in the terminal or scan QR code with Expo Go app
+- **Web**: Press `w` in the terminal
+
+## 📁 Project Structure
+
+```
+task-manager-mobile/
+├── src/
+│   ├── screens/
+│   │   ├── LoginScreen.tsx      # Authentication screen
+│   │   └── DashboardScreen.tsx  # Main dashboard
+│   └── services/
+│       └── api.ts              # API service functions
+├── App.tsx                     # Main app component
+├── package.json               # Dependencies
+└── README.md                  # This file
+```
+
+## 🔧 Configuration
+
+### API Configuration
+
+The mobile app connects to the backend API. Update the base URL in `src/services/api.ts`:
+
+```typescript
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api', // Change for production
+});
+```
+
+### Environment Variables
+
+Create a `.env` file for environment-specific configuration:
+
+```env
+EXPO_PUBLIC_API_URL=http://localhost:5000/api
+```
+
+## 📱 Features in Detail
+
+### Authentication
+- Email and password login
+- Error handling and validation
+- Automatic navigation to dashboard
+
+### Dashboard
+- Project selector with horizontal scroll
+- Task overview with priority badges
+- Quick statistics
+- Pull-to-refresh functionality
+
+### Task Management
+- View tasks with descriptions
+- Priority levels (Low, Medium, High, Urgent)
+- Due date display
+- Completion status
+
+### UI/UX
+- Modern, clean design
+- Smooth animations
+- Responsive layout
+- Loading states
+- Error handling
+
+## 🔮 Future Enhancements
+
+- [ ] **Task Creation**: Add new tasks from mobile
+- [ ] **Task Editing**: Edit task details
+- [ ] **Push Notifications**: Due date reminders
+- [ ] **Offline Support**: Work without internet
+- [ ] **Dark Mode**: Theme support
+- [ ] **Biometric Auth**: Fingerprint/Face ID
+- [ ] **Widgets**: Home screen widgets
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **Metro bundler issues**:
+   ```bash
+   npm start -- --clear
+   ```
+
+2. **iOS Simulator not working**:
+   ```bash
+   xcrun simctl boot "iPhone 15"
+   ```
+
+3. **Android Emulator issues**:
+   ```bash
+   adb reverse tcp:8081 tcp:8081
+   ```
+
+4. **API connection issues**:
+   - Check if backend is running on port 5000
+   - Verify network connectivity
+   - Check firewall settings
+
+### Development Tips
+
+- Use Expo Go app for quick testing
+- Enable hot reload for faster development
+- Use React Native Debugger for debugging
+- Test on both iOS and Android regularly
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+---
+
+**Built with ❤️ using React Native and Expo**
