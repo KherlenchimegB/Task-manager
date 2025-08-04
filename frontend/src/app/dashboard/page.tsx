@@ -6,6 +6,7 @@ import { auth, dashboardAPI, projectsAPI, tasksAPI } from '@/services/api';
 import type { DashboardStats, Project, Task } from '@/services/api';
 import ProjectSidebar from '@/components/ProjectSidebar';
 import TaskList from '@/components/TaskList';
+import TaskChart from '@/components/TaskChart';
 import { PlusIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 
@@ -272,13 +273,26 @@ export default function DashboardPage() {
         {/* Main content area */}
         <main className="p-4 sm:p-6">
           {selectedProject ? (
-            <TaskList
-              tasks={tasks}
-              project={selectedProject}
-              onTaskCreate={handleTaskCreate}
-              onTaskUpdate={handleTaskUpdate}
-              onTaskDelete={handleTaskDelete}
-            />
+            <div className="space-y-6">
+              {/* Chart Section */}
+              {stats && (
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-4">Task Statistics</h2>
+                  <TaskChart stats={stats} />
+                </div>
+              )}
+              
+              {/* Task List */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+                <TaskList
+                  tasks={tasks}
+                  project={selectedProject}
+                  onTaskCreate={handleTaskCreate}
+                  onTaskUpdate={handleTaskUpdate}
+                  onTaskDelete={handleTaskDelete}
+                />
+              </div>
+            </div>
           ) : (
             <div className="text-center py-12">
               <div className="mx-auto h-12 w-12 text-gray-400">
